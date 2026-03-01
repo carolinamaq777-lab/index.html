@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificador Oficial - Serie B</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0B8F0B;
+    margin: 0;
+    padding: 20px;
+}
+
+.contenedor {
+    background: white;
+    max-width: 500px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+h1 {
+    color: #0B8F0B;
+}
+
+select, input, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+button {
+    background-color: #0B8F0B;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #097a09;
+}
+
+#resultado {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tablas {
+    background: white;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.tablas h2 {
+    text-align: center;
+    color: #0B8F0B;
+}
+
+.listas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.lista {
+    min-width: 250px;
+}
+
+.lista h3 {
+    color: #0B8F0B;
+    border-bottom: 2px solid #0B8F0B;
+    padding-bottom: 5px;
+}
+
+.lista ul {
+    font-size: 13px;
+    padding-left: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+<h1>Verificador Serie B</h1>
+
+<select id="denominacion">
+<option value="10">10 Bs</option>
+<option value="20">20 Bs</option>
+<option value="50">50 Bs</option>
+</select>
+
+<input type="text" id="numero" placeholder="Ej: B77.100.001 o 77100001">
+
+<button onclick="verificar()">Verificar Billete</button>
+
+<div id="resultado"></div>
+</div>
+
+<div class="tablas">
+<h2>Rangos Inhabilitados Serie B</h2>
+
+<div class="listas">
+
+<div class="lista">
+<h3>10 Bs</h3>
+<ul>
+<li>77.100.001 – 77.550.000</li>
+<li>78.000.001 – 78.450.000</li>
+<li>78.900.001 – 96.350.000</li>
+<li>96.350.001 – 96.800.000</li>
+<li>96.800.001 – 97.250.000</li>
+<li>98.150.001 – 98.600.000</li>
+<li>104.900.001 – 105.350.000</li>
+<li>105.350.001 – 105.800.000</li>
+<li>106.700.001 – 107.150.000</li>
+<li>107.600.001 – 108.050.000</li>
+<li>108.050.001 – 108.500.000</li>
+<li>109.400.001 – 109.850.000</li>
+</ul>
+</div>
+
+<div class="lista">
+<h3>20 Bs</h3>
+<ul>
+<li>87.280.145 – 91.646.549</li>
+<li>96.650.001 – 97.100.000</li>
+<li>99.800.001 – 100.250.000</li>
+<li>100.250.001 – 100.700.000</li>
+<li>109.250.001 – 109.700.000</li>
+<li>110.600.001 – 111.050.000</li>
+<li>111.050.001 – 111.500.000</li>
+<li>111.950.001 – 112.400.000</li>
+<li>112.400.001 – 112.850.000</li>
+<li>112.850.001 – 113.300.000</li>
+<li>114.200.001 – 114.650.000</li>
+<li>114.650.001 – 115.100.000</li>
+<li>115.100.001 – 115.550.000</li>
+<li>118.700.001 – 119.150.000</li>
+<li>119.150.001 – 119.600.000</li>
+<li>120.500.001 – 120.950.000</li>
+</ul>
+</div>
+
+<div class="lista">
+<h3>50 Bs</h3>
+<ul>
+<li>67.250.001 – 67.700.000</li>
+<li>69.050.001 – 69.500.000</li>
+<li>69.500.001 – 69.950.000</li>
+<li>69.950.001 – 70.400.000</li>
+<li>70.400.001 – 70.850.000</li>
+<li>70.850.001 – 71.300.000</li>
+<li>76.310.012 – 85.139.995</li>
+<li>86.400.001 – 86.850.000</li>
+<li>90.900.001 – 91.350.000</li>
+<li>91.800.001 – 92.250.000</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<script>
+
+const rangos = {
+10:[[77100001,77550000],[78000001,78450000],[78900001,96350000],[96350001,96800000],[96800001,97250000],[98150001,98600000],[104900001,105350000],[105350001,105800000],[106700001,107150000],[107600001,108050000],[108050001,108500000],[109400001,109850000]],
+20:[[87280145,91646549],[96650001,97100000],[99800001,100250000],[100250001,100700000],[109250001,109700000],[110600001,111050000],[111050001,111500000],[111950001,112400000],[112400001,112850000],[112850001,113300000],[114200001,114650000],[114650001,115100000],[115100001,115550000],[118700001,119150000],[119150001,119600000],[120500001,120950000]],
+50:[[67250001,67700000],[69050001,69500000],[69500001,69950000],[69950001,70400000],[70400001,70850000],[70850001,71300000],[76310012,85139995],[86400001,86850000],[90900001,91350000],[91800001,92250000]]
+};
+
+function limpiarNumero(texto){
+texto = texto.toUpperCase().replace("B","").replace(/\./g,"").replace(/\s/g,"");
+return parseInt(texto);
+}
+
+function verificar(){
+let denom=document.getElementById("denominacion").value;
+let numero=limpiarNumero(document.getElementById("numero").value);
+let resultado=document.getElementById("resultado");
+
+if(!numero){
+resultado.style.color="orange";
+resultado.innerText="Ingrese un número válido.";
+return;
+}
+
+let dentro=false;
+
+for(let rango of rangos[denom]){
+if(numero>=rango[0] && numero<=rango[1]){
+dentro=true;
+break;
+}
+}
+
+if(dentro){
+resultado.style.color="red";
+resultado.innerText="⚠ BILLETE DENTRO DE RANGO SUSPENDIDO";
+}else{
+resultado.style.color="green";
+resultado.innerText="✔ BILLETE HABILITADO";
+}
+}
+
+</script>
+
+</body>
+</html>
